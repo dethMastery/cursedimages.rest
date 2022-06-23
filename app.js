@@ -4,6 +4,11 @@ const port = process.env.PORT || 3001;
 
 const images = require("./links.json");
 
+let deCORS = {
+  origin: '*',
+  optionsSuccessStatus: 200
+}
+
 app.set("views", "./views");
 app.set("view engine", "pug");
 
@@ -12,7 +17,7 @@ app.get("/", (req, res) => {
   res.render("index", { inp: src });
 });
 
-app.get("/api", (req, res) => {
+app.get("/api", cors(deCORS), (req, res) => {
   const src = images[Math.floor(Math.random() * images.length)];
   res.json({ image: src });
 });
